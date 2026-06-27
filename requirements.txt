@@ -1,0 +1,6 @@
+# Core computer-vision stack (CPU, real-time)
+# opencv-contrib-python ships the contrib trackers (KCF, CSRT) used here.
+# Do NOT also install opencv-python — the two packages conflict.
+opencv-contrib-python>=4.8
+numpy>=1.24
+matplotlib>=3.7
