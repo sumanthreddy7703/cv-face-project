@@ -5,8 +5,7 @@ This is a thin menu that wires together the modular components:
     - tracker.SimpleIOUTracker   (IOU multi-face tracker, used by the modes)
     - realtime.run_realtime      (live webcam mode)
     - train.train_on_video       (tune tracker hyperparameters)
-
-The testing + visual analytics mode is added in a later step of the project.
+    - testing.test_on_video      (evaluate + generate visual analytics)
 """
 
 from config import PROTOTXT_PATH, MODEL_PATH
@@ -14,6 +13,7 @@ from detector import FaceDetectorDNN
 from config_io import load_tracker_config
 from realtime import run_realtime
 from train import train_on_video
+from testing import test_on_video
 
 
 def main():
@@ -23,8 +23,9 @@ def main():
         print("\n========== MAIN MENU ==========")
         print("1 - Real-time webcam detection & tracking")
         print("2 - Train tracker hyperparameters on train_video.mp4")
-        print("3 - Exit")
-        choice = input("Enter choice (1/2/3): ").strip()
+        print("3 - Test tracker on test_video.mp4 (with visualizations)")
+        print("4 - Exit")
+        choice = input("Enter choice (1/2/3/4): ").strip()
 
         if choice == "1":
             config = load_tracker_config()
@@ -34,11 +35,15 @@ def main():
             train_on_video(detector)
 
         elif choice == "3":
+            config = load_tracker_config()
+            test_on_video(detector, config)
+
+        elif choice == "4":
             print("[INFO] Exiting.")
             break
 
         else:
-            print("[WARN] Invalid choice. Please enter 1, 2, or 3.")
+            print("[WARN] Invalid choice. Please enter 1, 2, 3, or 4.")
 
 
 if __name__ == "__main__":
